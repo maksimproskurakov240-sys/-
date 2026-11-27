@@ -1,12 +1,31 @@
 @echo off
-title СБОРКА CHIZHIK AI (PYQT5)
-echo Установка зависимостей...
-pip install PyQt5==5.15.10 pywin32 winshell keyboard
+setlocal
+cd /d "%~dp0"
+
+where py >nul 2>nul
+if %errorlevel% neq 0 (
+    echo [ОШИБКА] Python не найден в PATH.
+    pause
+    exit /b 1
+)
+
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m pip install --upgrade pyinstaller
+
+if %errorlevel% neq 0 (
+    echo [ОШИБКА] Не удалось установить зависимости.
+    pause
+    exit /b 1
+)
+
+python -m PyInstaller --clean --noconfirm build.spec
+if %errorlevel% neq 0 (
+    echo [ОШИБКА] Сборка PyInstaller завершилась с ошибкой.
+    pause
+    exit /b 1
+)
 
 echo.
-echo Сборка EXE файла...
-pyinstaller --noconfirm --onefile --windowed --name "Chizhik_AI" --hidden-import pkgutil main.py
-
-echo.
-echo [ГОТОВО] Файл лежит в папке dist/Chizhik_AI.exe
+echo [ГОТОВО] dist\Chizhik_AI.exe
 pause

@@ -1,5 +1,4 @@
 PyQt5==5.15.10
-urllib3
-pywin32
-winshell
-keyboard
+pywin32==306
+winshell==0.6
+pyinstaller>=6.0,<7.0
