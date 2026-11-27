@@ -2,6 +2,8 @@ import json
 import os
 import re
 import sys
+import time
+import urllib.parse
 import urllib.request
 
 # Official or community-maintained GGUF distributions used for offline local chat.
